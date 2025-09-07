@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field
-from typing import List, Dict, Union, Optional
+from pydantic import BaseModel, Field, EmailStr
+from typing import List, Dict, Union, Optional,Any
 from datetime import date
 
 class TripRequest(BaseModel):
@@ -35,3 +35,23 @@ class BookingRequest(BaseModel):
     trip_id: str
     payment_token: str
     total_amount: float
+
+class UserCreate(BaseModel):
+    """
+    Pydantic model for validating user creation data.
+
+    This model ensures that the data for a new user, such as
+    email, password, and an optional full name, meets the required
+    data types and formats before being processed.
+    
+    The `EmailStr` type from pydantic automatically handles email
+    format validation.
+    """
+    full_name: Optional[str] = None
+    email: EmailStr
+    password: str
+    
+
+class ItineraryData(BaseModel):
+    plan: Dict[str, Any]
+

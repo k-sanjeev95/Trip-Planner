@@ -6,3 +6,6 @@ google-generativeai
 python-multipart
 requests 
 google-maps
+firebase-admin
+tavily-python
+pip install pydantic[email]

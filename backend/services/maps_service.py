@@ -23,14 +23,15 @@ def get_location_coordinates(destination: str):
 
 def get_weather_data(destination: str):
     """
-    Fetches weather data using the WeatherAPI.com service.
+    Fetches weather data using the WeatherAPI.com service, including the aqi=no parameter.
     """
     api_key = os.getenv('WEATHER_API_KEY')
     api_endpoint = "https://api.weatherapi.com/v1/current.json"
     
     params = {
         "key": api_key,
-        "q": destination
+        "q": destination,
+        "aqi": "no" # Exclude air quality data
     }
     
     try:
