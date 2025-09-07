@@ -4,3 +4,5 @@ pydantic
 python-dotenv
 google-generativeai
 python-multipart
+requests 
+google-maps

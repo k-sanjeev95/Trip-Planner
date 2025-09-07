@@ -25,14 +25,23 @@ def read_root():
     return {"message": "Welcome to the AI Trip Planner API"}
 
 async def itinerary_stream_generator(request_data):
-    """A generator that yields chunks from the Gemini API."""
+    """A generator that yields chunks from the Gemini AI API."""
     try:
-        # Step 1: Fetch real-time data (simulated for now)
-        realtime_data = maps_service.get_realtime_data(request_data['destination'])
-        print(f"Simulated real-time data for Gemini prompt: {realtime_data}")
+        # Step 1: Fetch real-time data from the aggregator service, now with start_date
+        search_info_dict = maps_service.get_realtime_data(
+            request_data['destination'],
+            request_data['start_date']
+        )
+        
+        # Format the dictionary into a string for the AI prompt
+        search_info = ""
+        for key, value in search_info_dict.items():
+            search_info += f"- {key}: {value}\n"
+        
+        print(f"Aggregated real-time data for Gemini prompt:\n{search_info}")
         
         # Step 2: Stream itinerary using the Gemini AI service
-        stream = google_ai_services.stream_itinerary_with_ai(request_data)
+        stream = google_ai_services.stream_itinerary_with_ai(request_data, search_info)
         
         print("Starting to stream chunks from Gemini...")
         async for chunk in stream:
@@ -42,6 +51,11 @@ async def itinerary_stream_generator(request_data):
     except Exception as e:
         print(f"An error occurred in the streaming generator: {e}")
         yield json.dumps({"error": f"An error occurred: {e}"})
+
+@app.post("/plan_trip")
+async def plan_trip(request: TripRequest):
+    """Generates a personalized itinerary as a real-time stream."""
+    return StreamingResponse(itinerary_stream_generator(request.model_dump()), media_type="text/event-stream")
 
 # async def itinerary_stream_generator(request_data):
 #     """A generator that yields chunks from the Gemini API."""
