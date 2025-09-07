@@ -1,7 +1,9 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+./services/__pycache__/
 *.py[codz]
 *$py.class
+
+firebase-service-account.json
 
 # C extensions
 *.so
