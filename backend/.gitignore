@@ -3,7 +3,7 @@
 *.py[codz]
 *$py.class
 
-firebase-service-account.json
+.firebase-service-account.json
 
 # C extensions
 *.so
