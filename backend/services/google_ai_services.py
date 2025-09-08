@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-print("gemini key ",os.getenv("GOOGLE_API_KEY"))
+
 
 MODEL_NAME = "gemini-1.5-pro-latest"
 

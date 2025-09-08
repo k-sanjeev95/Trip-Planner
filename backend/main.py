@@ -32,7 +32,7 @@ async def itinerary_stream_generator(request_data):
     """A generator that yields chunks from the Gemini AI API."""
     try:
         # Step 1: Fetch real-time data from the aggregator service, now with start_date
-        search_info_dict = maps_service.get_realtime_data(
+        search_info_dict = await maps_service.get_realtime_data(
             request_data['destination'],
             request_data['start_date']
         )
